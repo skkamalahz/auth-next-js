@@ -8,15 +8,19 @@ connect();
 
 export async function GET(request: NextRequest) {
     try {
-        const reqBody = await request.json();
-        const {token} = reqBody;
+        const token = request.nextUrl.searchParams.get("token");
         console.log(token);
+
+        if (!token) {
+            return NextResponse.json({error: "Token is missing"}, {status: 400});
+        }
 
         const user = await User.findOne({verifyToken: token,
         verifyTokenExpiry: {$gt: Date.now()}});
 
         if(!user) {
-            return NextResponse.json({error: "Invalid token"}, {status: 400})
+            return NextResponse.json({error: "Invalid token"}, 
+            {status: 400})
         }
         console.log(user);
 

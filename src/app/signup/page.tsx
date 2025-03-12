@@ -83,10 +83,10 @@ export default function SignupPage() {
             <hr />
             <hr />
             
-            <Link href="/login">
+            <Link href="/login" className="mt-4 p-2 bg-amber-700 text-white rounded">
                 Visit Login Page
             </Link>
             
-        </div>
+        </div> 
     );
 }

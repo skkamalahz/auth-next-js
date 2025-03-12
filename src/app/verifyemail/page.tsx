@@ -12,7 +12,7 @@ export default function VerifyEmailPage() {
 
     const verifyUserEmail = async () => {
         try {
-            await axios.post("/api/users/verifyemail", {token});
+            await axios.get(`/api/users/verifyemail?token=${token}`);
             setVerified(true);
         } catch (error:any) {
             setError(true);
@@ -37,17 +37,16 @@ export default function VerifyEmailPage() {
             <h2 className="text-2xl p-2 bg-orange-500 text-black rounded-md mt-4">{token ? `${token}` : "no token"}</h2>
 
             {verified && (
-                <div>
-                    <h2 className="text-2xl">Email verified successfully</h2>
-                    <Link href="/login">
+                <div className="flex flex-col items-center justify-center">
+                    <h2 className="text-2xl bg-green-500 text-white p-2 rounded-md mt-4 mb-4">Email verified successfully</h2>
+                    <Link href="/login" className="text-2xl bg-blue-500 text-white p-2 rounded-md">
                     Login
                     </Link>
                 </div>
             )}
             {error && (
                 <div>
-                    <h2 className="text-2xl bg-red-500 text-white p-2 rounded-md">Error</h2>
-                    <p>{error}</p>
+                    <h2 className="text-2xl bg-red-500 text-white p-2 rounded-md mt-4">Email Not Verified</h2>
                 </div>
             )}
             

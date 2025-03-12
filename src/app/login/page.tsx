@@ -70,10 +70,14 @@ export default function LoginPage() {
                 Login Here
             </button>
 
+            <Link href="/forgotpassword" className="mt-2 text-blue-500 hover:underline">
+                Forgot Password?
+            </Link>
+
             <hr />
             <hr />
             
-            <Link href="/signup">
+            <Link href="/signup" className="mt-4 p-2 bg-amber-700 text-white rounded">
                 Visit Signup Page
             </Link>
             
