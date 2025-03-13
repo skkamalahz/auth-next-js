@@ -32,17 +32,16 @@ export const sendEmail = async ({ email, emailType, userId }: EmailParams) => {
 
     // Looking to send emails in production? Check out our Email API/SMTP product!
     var transport = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+      host: process.env.SMTP_HOST || "sandbox.smtp.mailtrap.io",
+      port: parseInt(process.env.SMTP_PORT || "2525"),
       auth: {
-        user: "08008df97967f0",
-        pass: "957ab2b6410659",
-        //TODO: Add your own credentials to .env file
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     const mailOptions = {
-      from: "ahzmarketing12@gmail.com",
+      from: process.env.SMTP_FROM || "noreply@example.com",
       to: email,
       subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
       html: emailType === "VERIFY" 

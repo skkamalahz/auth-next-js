@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Authentication Project
+
+This is a [Next.js](https://nextjs.org) authentication project with email verification and password reset functionality.
 
 ## Getting Started
 
@@ -16,18 +18,50 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Before running the project, you need to set up the following environment variables. Create a `.env.local` file in the root directory and add these variables:
+
+```env
+# App URL
+DOMAIN=http://localhost:3000
+
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
+
+# JWT
+TOKEN_SECRET=your_jwt_secret_key
+
+# SMTP (Email)
+SMTP_HOST=sandbox.smtp.mailtrap.io
+SMTP_PORT=2525
+SMTP_USER=your_smtp_username
+SMTP_PASS=your_smtp_password
+SMTP_FROM=noreply@yourdomain.com
+```
+
+## Deploying to Vercel
+
+1. Push your code to GitHub
+2. Import your repository in Vercel
+3. Add the following environment variables in your Vercel project settings:
+   - DOMAIN (your production URL, e.g., https://your-app.vercel.app)
+   - MONGODB_URI
+   - TOKEN_SECRET
+   - SMTP_HOST
+   - SMTP_PORT
+   - SMTP_USER
+   - SMTP_PASS
+   - SMTP_FROM
+
+4. Deploy!
 
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
 
 ## Deploy on Vercel
 
