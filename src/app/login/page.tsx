@@ -2,10 +2,9 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import toast from "react-hot-toast";
-
-
+import { CustomError } from "@/types/error";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -14,8 +13,7 @@ export default function LoginPage() {
         password: "",
     });
 
-    const [buttonDisabled, setButtonDisabled] = React.useState(false);
-    const [Loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const onLogin = async () => { 
         try {
@@ -24,9 +22,10 @@ export default function LoginPage() {
             console.log("Login Success", response.data);
             toast.success("Login successful");
             router.push("../profile");
-        } catch (error: any) {
-            console.log("Login Error", error.message);
-            toast.error(error.message);
+        } catch (error: unknown) {
+            const customError = error as CustomError;
+            console.log("Login Error", customError.message);
+            toast.error(customError.message);
         } finally {
             setLoading(false);
         }
@@ -34,15 +33,15 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (user.email.length > 0 && user.password.length > 0) {
-            setButtonDisabled(false);
+            setLoading(false);
         } else {
-            setButtonDisabled(true);
+            setLoading(true);
         }
     }, [user]);
 
     return (
         <div className="flex flex-col items-center min-h-screen justify-center py-2">
-            <h1 className="text-center text-2xl">{Loading ? "Logging in..." : "Login Page"}</h1>
+            <h1 className="text-center text-2xl">{loading ? "Logging in..." : "Login Page"}</h1>
             <hr />
             <hr />
 
@@ -66,7 +65,11 @@ export default function LoginPage() {
                 className="mt-2 p-2 border rounded"
             />
 
-            <button onClick={onLogin} className="mt-4 p-2 bg-blue-500 text-white rounded">
+            <button 
+                onClick={onLogin} 
+                className="mt-4 p-2 bg-blue-500 text-white rounded"
+                disabled={loading}
+            >
                 Login Here
             </button>
 
@@ -80,7 +83,6 @@ export default function LoginPage() {
             <Link href="/signup" className="mt-4 p-2 bg-amber-700 text-white rounded">
                 Visit Signup Page
             </Link>
-            
         </div>
     );
 }
