@@ -11,6 +11,8 @@ const nextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
+  // Disable React StrictMode for now
+  reactStrictMode: false,
 };
 
 export default nextConfig; 
